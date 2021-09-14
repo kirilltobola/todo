@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::put('/item/{id}', [\App\Http\Controllers\ItemController::class, 'update'])->name("update");
+
+Route::put('/item/{order}/{dir}', [\App\Http\Controllers\ItemController::class, 'updateOrder'])->name("order");
+
+Route::delete('/item/{id}', [\App\Http\Controllers\ItemController::class, 'delete'])->name("delete");
+
+Route::post('/', [\App\Http\Controllers\ItemController::class, 'store'])->name("store");
+
+Route::get('/', [\App\Http\Controllers\ItemController::class, 'index'])->name("index");
