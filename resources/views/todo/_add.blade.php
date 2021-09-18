@@ -1,4 +1,4 @@
-<form id="add-todo-form" action="{{ route("store") }}" method="post">
+<form id="add-todo-form" style="margin-left: 25%" action="{{ route("store") }}" method="post">
     @csrf
 
     <div class="row g-3 align-items-center">
