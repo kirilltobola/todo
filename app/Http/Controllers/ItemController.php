@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route("register");
+        }
         return view("index", [
-            "items" => Item::orderBy("order_id", "desc")->get()
+            "items" => Item::query()->where("user_id", "=", Auth::id())->orderBy("order_id", "desc")->get()
         ]);
     }
 
@@ -19,6 +23,7 @@ class ItemController extends Controller
         $item = new Item();
         $item->text = $request->input("text");
         $item->order_id = Item::max("id") + 1;
+        $item->user_id = Auth::id();
         $item->save();
         return redirect()->route("index");
     }
