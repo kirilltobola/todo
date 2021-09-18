@@ -19,6 +19,9 @@ class CreateItemsTable extends Migration
             $table->boolean("done")->default(false);
             $table->text("text");
             $table->timestamps();
+
+            $table->bigInteger("user_id")->unsigned()->index()->nullable();
+            $table->foreign("user_id")->references("id")->on("users");
         });
     }
 
