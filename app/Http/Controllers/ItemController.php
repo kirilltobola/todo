@@ -30,7 +30,7 @@ class ItemController extends Controller
             )->max("order_id") + 1;
         $item->user_id = Auth::id();
         $item->save();
-        return redirect()->route("index");
+        return redirect()->route("todo");
     }
 
     public function update(Request $request, $id)
@@ -38,14 +38,14 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $item->done ^= 1;
         $item->save();
-        return redirect()->route("index");
+        return redirect()->route("todo");
     }
 
     public function delete(Request $request, $id)
     {
         $item = Item::findOrFail($id);
         $item->forceDelete();
-        return redirect()->route("index");
+        return redirect()->route("todo");
     }
 
     public function updateOrder(Request $request, $order, $dir)
@@ -72,6 +72,6 @@ class ItemController extends Controller
             $row->save();
             $item->save();
         }
-        return redirect()->route("index");
+        return redirect()->route("todo");
     }
 }
